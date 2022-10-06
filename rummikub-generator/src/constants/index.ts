@@ -1,0 +1,13 @@
+export const WILD = 'WILD';
+const BLACK = 'BLACK';
+const RED = 'RED';
+const YELLOW = 'YELLOW';
+const BLUE = 'BLUE';
+export const COLORS = { BLACK, RED, YELLOW, BLUE };
+export const RANKS = [1,2,3,4,5,6,7,8,9,10,11,12,13] as const;
+export const TRAY_STARTING_SIZE = 14;
+export const NUM_RANKED_DUPLICATES = 2;
+export const NUM_JOKERS = 2;
+export const GROUP = 'GROUP';
+export const RUN = 'RUN';
+export const SET_TYPES = { GROUP, RUN };
