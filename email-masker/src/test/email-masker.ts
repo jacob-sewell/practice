@@ -9,5 +9,27 @@
  * @returns {string} Masked email address or empty string if inAddr didn't look like a valid email address.
  */
 export default function hideEmail(inAddr: string, hideDomain = false): string {
-    return inAddr;
+    const addrSegs: string[] = inAddr.split('@');
+    if (addrSegs.length !== 2) {
+        return '';
+    }
+    const [inUsername, inDomain]: string[] = addrSegs;
+    const domainSegs = inDomain.split('.');
+    if (
+        domainSegs.length < 2 ||
+        domainSegs
+            .map((w) => w.length)
+            .reduce((r: number, n: number): number => Math.min(r, n)) < 1
+    ) {
+        return '';
+    }
+    if (hideDomain) {
+        domainSegs.splice(0, 1, domainSegs[0].split('').fill('*', 1).join(''));
+    }
+
+    return (
+        inUsername.split('').fill('*', 1, -1).join('') +
+        '@' +
+        domainSegs.join('.')
+    );
 }
