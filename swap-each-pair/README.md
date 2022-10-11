@@ -19,3 +19,5 @@ Given a list, swap every two adjacent nodes. Something to think about: How would
 ## Notes
 
 This is such a simple thing that I'm going to just try to do it fast while still adhering to TDD.
+
+(3 minutes, apparently.)
