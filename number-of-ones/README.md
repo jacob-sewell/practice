@@ -33,8 +33,8 @@ So the general function for a positive integer `n` that happens to be one less t
 ```js
 function f(exp) {
     if (exp <= 1) return 1;
-    return Math.pow(10, exp) // The number of times the digit in the most significant place was 1.
-        + 10 * f(exp-1); // We had to go through the next-smaller power of ten ten times to get here.
+    return Math.pow(10, exp - 1) // The number of times the digit in the most significant place was 1.
+        + 10 * f(exp - 1); // We had to go through the next-smaller power of ten ten times to get here.
 }
 ```
 
