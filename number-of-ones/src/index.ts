@@ -17,7 +17,23 @@ export default function numberOfOnes(n: number): number {
     if (n < 10) return n < 1 ? 0 : 1; // Edge cases
 
     const nInt: number = Math.floor(n);
-    const logFloor: number = Math.floor(Math.log10(nInt + 1)); // Adding 1 here because we want to get 2 for 99
+    const relevantLog: number = Math.floor(Math.log10(nInt + 1)); // Adding 1 here because we want to get 2 for 99
 
-    return numberOfOnesBelowExp(logFloor);
+    const plateau: number = Math.pow(10, relevantLog);
+    const onesBelowPlateau: number = numberOfOnesBelowExp(relevantLog);
+    const remainder: number = nInt - plateau;
+    const firstDigit: number = Math.floor(nInt / plateau);
+    let ret: number = onesBelowPlateau;
+
+    if (remainder >= 0) {
+        if (firstDigit > 1) {
+            ret *= firstDigit; // For the number of times we had to go through all the lower digit cycles to get here
+            ret += plateau; // For the number of times the first digit _was_ 1.
+        } else {
+            ret += 1 + remainder; // For the leading 1s in the current incomplete cycle of the lower digits
+        }
+
+        ret += numberOfOnes(remainder % plateau); // For the trailing 1s in the current incomplete cycles of the lower digits
+    }
+    return ret;
 }
