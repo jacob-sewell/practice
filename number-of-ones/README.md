@@ -15,7 +15,30 @@ Given an integer `n`, count the total number of `1` digits appearing in all non-
 
 ## Notes
 
-Just first thoughts, but I think this is going to come down to powers of ten. Like, how many times does each wheel of the metaphorical odometer spin around between `0` and `n`.
+### Algorithm and Approach
+
+I probably did more brute forcing on this than was necessary, but I'm a coder; I like to write code. I started with the observation that it's possible to recursively determine this for any number that's 1 less than a power of ten, like so:
+
+| exp | 10^exp - 1 | expression | calculated number of ones, or f(exp) |
+| --- | ---------- | ---------- | ------------------------------------ |
+| 1 | 9 | 1 | 1 |
+| 2 | 99 | 10^1 + 10 * f(1) | 20 |
+| 3 | 999 | 10^2 + 10 * f(2) | 300 |
+| 4 | 9999 | 10^3 + 10 * f(3) | 4000 |
+| 5 | 99999 | 10^4 + 10 * f(4) | 50000 |
+| 6 | 999999 | 10^5 + 10 * f(5) | 600000 |
+
+So the general function for a positive integer `n` that happens to be one less than 10 to the power `exp` is:
+
+```js
+function f(exp) {
+    if (exp <= 1) return 1;
+    return Math.pow(10, exp) // The number of times the digit in the most significant place was 1.
+        + 10 * f(exp-1); // We had to go through the next-smaller power of ten ten times to get here.
+}
+```
+
+This was the origin of `numberOfOnesBelowExp()` in index.ts. Everything after that about dealing with the incomplete journey to the next power of ten, e.g. how many times have we turned over the next less significant place, have we gone through all the times when the most significant place had a 1, etc.
 
 ### Benchmarking power-of-ten detection
 
