@@ -14,5 +14,10 @@ function numberOfOnesBelowExp(exp: number): number {
  * @returns {number}
  */
 export default function numberOfOnes(n: number): number {
-    return -1;
+    if (n < 10) return n < 1 ? 0 : 1; // Edge cases
+
+    const nInt: number = Math.floor(n);
+    const logFloor: number = Math.floor(Math.log10(nInt + 1)); // Adding 1 here because we want to get 2 for 99
+
+    return numberOfOnesBelowExp(logFloor);
 }
