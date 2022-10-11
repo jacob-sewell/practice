@@ -25,6 +25,7 @@ export default function numberOfOnes(n: number): number {
     const firstDigit: number = Math.floor(nInt / plateau);
     let ret: number = onesBelowPlateau;
 
+    // We have done the easy part. Now we deal with the numbers at or above our plateau.
     if (remainder >= 0) {
         if (firstDigit > 1) {
             ret *= firstDigit; // For the number of times we had to go through all the lower digit cycles to get here
